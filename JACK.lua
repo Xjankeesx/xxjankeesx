@@ -6123,7 +6123,7 @@ end
 end 
 tdcli_function ({ID = "SearchPublicChat",username_ = username}, start_function, nil) 
 end
-if text==('معلومات الجروب') and Mod(msg) then  
+if text==('عدد الجروب') and Mod(msg) then  
 if msg.can_be_deleted_ == false then 
 send(msg.chat_id_,msg.id_," ◉  البوت ليس ادمن \n") 
 return false  
@@ -6139,6 +6139,31 @@ send(msg.chat_id_, msg.id_, ban)
 end,nil)
 end,nil)
 end 
+
+if text == "مارتن" or text == "توام هارلين" then
+local TEXT_SUD = bot_data:get(ban_id..'DRAGON:TEXT_SUDO')
+if TEXT_SUDO then 
+send(msg.chat_id_, msg.id_,TEXT_SUDO)
+else
+tdcli_function ({ID = "GetUser",user_id_ = 2060947106,},function(arg,result) 
+local function marten(extra, marten, success)
+if marten.photos_[0] then
+local Name = '['..result.first_name_..'](t.me/marten_vs_worled)\n'
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = ''..result.first_name_..'',url="t.me/marten_vs_worled"},
+},
+}
+local msg_id = msg.id_/2097152/0.5
+https.request("https://api.telegram.org/bot"..token..'/sendPhoto?chat_id='..msg.chat_id_..'&caption='..URL.escape(Name)..'&photo='..marten.photos_[0].sizes_[1].photo_.persistent_id_..'&reply_to_message_id='..msg_id..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboard)) 
+else
+sendText(msg.chat_id_,Name,msg.id_/2097152/0.5,'md')
+ end end
+tdcli_function ({ ID = "GetUserProfilePhotos", user_id_ = 2060947106, offset_ = 0, limit_ = 1 }, marten, nil)
+end,nil)
+end
+end
 
 if text and text:match("^صيح (.*)$") then
 local username = text:match("^صيح (.*)$") 
